@@ -22,7 +22,5 @@
     "steal-tools": "^0.16.8",
     "testee": "^0.2.5"
   },
-  "dependencies": {
-    "observable-object-es6": "^1.0.2"
-  }
+  "dependencies": {}
 }
