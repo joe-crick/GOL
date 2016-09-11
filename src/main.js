@@ -1,5 +1,6 @@
 import initGame from 'GameOfLife/game-init';
 import playRound from 'GameOfLife/game-round';
+import 'GameOfLife/app.less';
 
 let doc = document;
 let gameInterval;
