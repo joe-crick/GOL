@@ -1,0 +1,28 @@
+{
+  "name": "GameOfLife",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "steal-tools",
+    "start": "http-server"
+  },
+  "system": {
+    "npmAlgorithm": "flat",
+    "directories": {
+      "lib": "src"
+    }
+  },
+  "keywords": [],
+  "author": "Joe Crick <joe@josephcrick.com> (http://josephcrick.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "steal": "^0.16.35",
+    "steal-jasmine": "0.0.2",
+    "steal-tools": "^0.16.8",
+    "testee": "^0.2.5"
+  },
+  "dependencies": {
+    "observable-object-es6": "^1.0.2"
+  }
+}
