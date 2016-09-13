@@ -1,5 +1,5 @@
 import initGrid from 'GameOfLife/grid-init';
-import initBoard from 'GameOfLife/init-board';
+import boardFactory from 'GameOfLife/init-board';
 import 'GameOfLife/app.less';
 
 let doc = document;
@@ -21,7 +21,8 @@ createUiGridButton.addEventListener(click, () => {
     const cols = doc.querySelector('#cols').value >> 0;
     const existingGrid = gameContainer.querySelector('div');
     grid = initGrid({cols, rows});
-    gameContainer.replaceChild(initBoard(grid), existingGrid);
+    const boardCreator = boardFactory(doc);
+    gameContainer.replaceChild(boardCreator(grid), existingGrid);
     startButton.disabled = false;
 });
 
