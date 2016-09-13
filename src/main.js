@@ -1,5 +1,6 @@
 import initGrid from 'GameOfLife/grid-init';
 import boardFactory from 'GameOfLife/init-board';
+import {updateCellDisplay} from 'GameOfLife/uiCellUpdater';
 import 'GameOfLife/app.less';
 
 let doc = document;
@@ -32,7 +33,7 @@ gameContainer.addEventListener(click, (event) => {
         const target = event.target;
         const cell = grid.findCell(target.id);
         cell.toggleLifeState();
-        target.textContent = cell.isAlive ? 'X' : 'O';
+        updateCellDisplay({uiCell: target, cell});
     }
 });
 

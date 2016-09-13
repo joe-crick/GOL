@@ -1,4 +1,4 @@
-import uiCellUpdateFactory from 'GameOfLife/uiCellUpdater'
+import {updateUiCellFactory} from 'GameOfLife/uiCellUpdater';
 
 function isNewRow(cellNum, grid) {
     return cellNum % grid.cols === 0;
@@ -15,7 +15,7 @@ export default doc => {
         const wrapper = doc.createElement('div');
         let cellNum = 0;
         let domRow = doc.createElement('div');
-        const cellUpdater = uiCellUpdateFactory(doc);
+        const cellUpdater = updateUiCellFactory(doc);
         grid.cells.forEach((cell, key) => {
             cell.lifeUpdated.subscribe(cellUpdater);
             if (isNewRow(cellNum, grid)) {
