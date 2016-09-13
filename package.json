@@ -22,5 +22,7 @@
     "steal-tools": "^0.16.8",
     "testee": "^0.2.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "event-js": "^0.1.3"
+  }
 }

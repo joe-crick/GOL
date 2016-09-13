@@ -1,21 +1,29 @@
 import Cell from 'GameOfLife/cell';
 
 /**
- * @description Grid: Creates a grid of Cells. Auto seeds, due to time constraints.
- * @param config
- * @returns {Array}
+ * @description Grid: Creates a Map of Cells.
+ * @param cols
+ * @param rows
+ * @returns {Map}
  */
-export default (config) => {
-	let {cols, rows} = config;
-	const grid = [];
-	while(rows--) {
-		grid.push(Array(cols).fill().map((cell, cellIdx) => {
-			cell = new Cell();
-			if ((cellIdx + rows) % 2 === 0) {
-				cell.isAlive = true;
-			}
-			return cell;
-		}));
-	}
-	return grid;
+function gridFactory ({cols, rows}={}) {
+    let cells = [];
+    let cellId = 0;
+    for (let i = 0; i < rows; i++) {
+        cells = cells.concat(Array(cols).fill().map(() => {
+            cellId++;
+            return [`cell-${cellId}`, new Cell(cellId)];
+        }));
+    }
+    return {
+        cols,
+        rows,
+        cells: new Map(cells)
+    };
 };
+
+function findCell(grid, cellId) {
+    return grid.find(cellId);
+}
+
+export {gridFactory};
