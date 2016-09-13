@@ -1,3 +1,8 @@
+import updateCellDisplay from 'GameOfLife/uiCellUpdater'
+
+function isNewRow(cellNum, grid) {
+    return cellNum % grid.cols === 0;
+}
 /**
  * @description Creates a document fragment that represents the game grid
  * @param grid
@@ -6,12 +11,14 @@
 export default grid => {
     const doc = document;
     const root = doc.createDocumentFragment();
+    const wrapper = doc.createElement('div');
     let cellNum = 0;
     let domRow = doc.createElement('div');
-    grid.cells.forEach((val, key) => {
-        if (cellNum % grid.cols === 0) {
+    grid.cells.forEach((cell, key) => {
+        cell.lifeUpdated.subscribe(updateCellDisplay);
+        if (isNewRow(cellNum, grid)) {
             domRow = doc.createElement('div');
-            root.appendChild(domRow);
+            wrapper.appendChild(domRow);
         }
         const domCell = doc.createElement('span');
         domCell.id = key;
@@ -20,8 +27,6 @@ export default grid => {
         domRow.appendChild(domCell);
         cellNum++;
     });
+    root.appendChild(wrapper);
     return root;
 };
-
-// click event on the grid, that gets the calling cell, and, if the game is in init
-// Allows you to set the alive state

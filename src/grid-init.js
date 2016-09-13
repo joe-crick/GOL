@@ -1,4 +1,4 @@
-import {gridFactory} from 'GameOfLife/grid';
+import Grid from 'GameOfLife/grid';
 
 /**
  * @description Creates a Grid, sets up the relationships between the cells
@@ -6,7 +6,7 @@ import {gridFactory} from 'GameOfLife/grid';
  * @param rows
  */
 export default ({cols, rows}={}) => {
-    const grid = gridFactory({cols, rows});
+    const grid = new Grid({cols, rows});
     let rowNum = 0, colNum = 0, cellNum = 0;
     const cells = grid.cells;
 
@@ -20,7 +20,7 @@ export default ({cols, rows}={}) => {
         cellNum++;
 
         const hasTopRow = rowNum - 1 >= 0;
-        const hasBottomRow = rowNum + 1 < (grid.size / cols);
+        const hasBottomRow = rowNum + 1 < (grid.cells.size / cols);
         const hasLeft = colNum - 1 > 0;
         const hasRight = colNum + 1 < cols;
 

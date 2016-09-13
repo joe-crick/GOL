@@ -3,31 +3,48 @@ import initBoard from 'GameOfLife/init-board';
 import 'GameOfLife/app.less';
 
 let doc = document;
-let gameInterval;
 let grid;
-
-const createUiGrid = doc.querySelector('#init-grid');
+let isGamePlaying = false;
+const createUiGridButton = doc.querySelector('#init-grid');
 const startButton = doc.querySelector('#start-button');
 const stopButton = doc.querySelector('#stop-button');
+const gameContainer = doc.querySelector('#game');
 const click = 'click';
 
-createUiGrid.addEventListener(click, () => {
+function setButtonStates() {
+    createUiGridButton.disabled = isGamePlaying;
+    stopButton.disabled = !isGamePlaying;
+}
+
+createUiGridButton.addEventListener(click, () => {
     const rows = doc.querySelector('#rows').value >> 0;
     const cols = doc.querySelector('#cols').value >> 0;
-    const gameContainer = doc.querySelector('#game');
-    gameContainer.appendChild(initBoard(initGrid({cols, rows})));
-    gameContainer.addEventListener(click, (event) => {
+    const existingGrid = gameContainer.querySelector('div');
+    grid = initGrid({cols, rows});
+    gameContainer.replaceChild(initBoard(grid), existingGrid);
+    startButton.disabled = false;
+});
+
+gameContainer.addEventListener(click, (event) => {
+    // Allow the user to seed the game only if the game is not active
+    if (!isGamePlaying) {
         const target = event.target;
-        alert(`hello ${target.id}`);
-    });
+        const cell = grid.findCell(target.id);
+        cell.toggleLifeState();
+        target.textContent = cell.isAlive ? 'X' : 'O';
+    }
 });
 
 startButton.addEventListener(click, () => {
-	gameInterval = setInterval(() => {
-		playGameRound();
-	}, 1000);
+    isGamePlaying = true;
+    startButton.disabled = true;
+    grid.cells.get('cell-1').setLifeState();
+    setButtonStates();
 });
 
 stopButton.addEventListener(click, () => {
-	clearInterval(gameInterval);
+    isGamePlaying = false;
+    startButton.disabled = true;
+    setButtonStates();
+    grid.reset();
 });
